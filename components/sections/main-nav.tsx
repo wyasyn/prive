@@ -13,7 +13,7 @@ export const NavigationBar = () => {
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-14 items-center justify-between">
         {/* Left Section: Logo and Main Links */}
         <div className="flex items-center space-x-8">
           <Logo name={"Walum."} />

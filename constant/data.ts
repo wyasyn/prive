@@ -20,7 +20,7 @@ export const SERVICES = [
     href: "/services/mobile",
   },
   {
-    title: "Backend & APIs",
+    title: "Backend and APIs",
     description: "Secure, scalable APIs and backend systems.",
     tools: ["FastAPI", "NestJS", "Express"],
     icon: "https://images.unsplash.com/photo-1597239450996-ea7c2c564412?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -28,7 +28,7 @@ export const SERVICES = [
   },
   {
     title: "Custom Software",
-    description: "Desktop & specialized software solutions.",
+    description: "Desktop and specialized software solutions.",
     tools: ["Electron", "Flutter", "Python"],
     icon: "https://images.unsplash.com/photo-1643513208375-df314b16347a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     href: "/services/custom",

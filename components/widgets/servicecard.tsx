@@ -17,7 +17,7 @@ export const ServiceCard = ({ service }: { service: Service }) => {
             bg-card/70 backdrop-blur
             p-5 shadow-xs
             hover:shadow-md hover:border-primary/40
-            transition-all
+            transition-all group
           "
         >
           <div className="flex flex-col gap-4">
@@ -26,7 +26,7 @@ export const ServiceCard = ({ service }: { service: Service }) => {
                 src={service.icon}
                 alt={service.title}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover rounded-lg group-hover:scale-105 transition-transform"
               />
             </div>
 
