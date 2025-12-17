@@ -1,15 +1,85 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const ceraPro = localFont({
+  src: [
+    // Thin
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-thin.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-thinitalic.otf",
+      weight: "100",
+      style: "italic",
+    },
+
+    // Light
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-lightitalic.otf",
+      weight: "300",
+      style: "italic",
+    },
+
+    // Regular
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-regularitalic.otf",
+      weight: "400",
+      style: "italic",
+    },
+
+    // Medium
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-mediumitalic.otf",
+      weight: "500",
+      style: "italic",
+    },
+
+    // Bold
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-bolditalic.otf",
+      weight: "700",
+      style: "italic",
+    },
+
+    // Black
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-black.otf",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cera-pro-font/cerapro-blackitalic.otf",
+      weight: "900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-cera-pro",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +93,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={ceraPro.variable} suppressHydrationWarning>
+      <body className={`antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
