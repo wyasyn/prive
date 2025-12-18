@@ -41,7 +41,7 @@ export const SecondaryDropdown = () => {
             transition={{ duration: 0.15 }}
             className="absolute top-full right-0 mt-2 w-40
   rounded-xl border border-border/50
-  bg-background/80 backdrop-blur-md
+  bg-secondary/80 backdrop-blur-md
   shadow-lg py-2 z-50"
             aria-label="Secondary navigation"
             role="menu"

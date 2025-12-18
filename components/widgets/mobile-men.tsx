@@ -82,7 +82,7 @@ export const MobileMenu = () => {
             className="
     absolute right-0 mt-3 w-56
     rounded-2xl border border-border/50
-    bg-background/85 backdrop-blur-md
+    bg-secondary/85 backdrop-blur-md
     shadow-xl p-4 z-50
   "
           >

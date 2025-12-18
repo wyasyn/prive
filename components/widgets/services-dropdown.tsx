@@ -45,7 +45,7 @@ export const ServicesDropdown = () => {
             className="
         absolute left-0 top-full mt-3 w-190
         rounded-2xl border border-border/50
-        bg-background/80 backdrop-blur-md
+        bg-secondary/95 backdrop-blur-md
         shadow-xl p-6 z-50
       "
           >
