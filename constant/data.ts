@@ -140,16 +140,16 @@ export const SERVICES: Service[] = [
 ];
 
 export const socials = [
-  { icon: IconBrandGithub, href: "https://github.com", label: "GitHub" },
+  { icon: IconBrandGithub, href: "https://github.com/wyasyn", label: "GitHub" },
   {
     icon: IconBrandLinkedin,
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/yasin-walum",
     label: "LinkedIn",
   },
-  { icon: IconBrandX, href: "https://twitter.com", label: "Twitter" },
+  { icon: IconBrandX, href: "hhttps://x.com/wyasyn", label: "Twitter" },
   {
     icon: IconBrandInstagram,
-    href: "https://dribbble.com",
+    href: "https://www.instagram.com/yasin_walum",
     label: "Dribbble",
   },
 ];
