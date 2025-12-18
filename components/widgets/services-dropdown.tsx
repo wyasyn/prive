@@ -50,7 +50,7 @@ export const ServicesDropdown = () => {
       "
           >
             <div className="grid grid-cols-2 gap-5">
-              {SERVICES.map((service) => (
+              {SERVICES.slice(0, -2).map((service) => (
                 <ServiceCard key={service.title} service={service} />
               ))}
             </div>
