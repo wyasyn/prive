@@ -14,8 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { uploadToCloudinary } from "@/lib/cloudinary";
+import { uploadToCloudinary } from "@/app/actions/cloudinary";
 import { IconLoader2, IconX } from "@tabler/icons-react";
+import { toast } from "sonner";
 
 interface ProjectFormProps {
   project?: Project;
@@ -63,11 +64,15 @@ export function ProjectForm({ project }: ProjectFormProps) {
 
     setIsUploading(true);
     try {
-      const result = await uploadToCloudinary(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadToCloudinary(formData);
       setCoverImage(result.secure_url);
     } catch (error) {
-      console.error("[v0] Error uploading image:", error);
-      alert("Failed to upload image. Please try again.");
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image", {
+        description: error instanceof Error ? error.message : "Please try again.",
+      });
     } finally {
       setIsUploading(false);
     }
@@ -135,10 +140,13 @@ export function ProjectForm({ project }: ProjectFormProps) {
         });
       }
 
+      toast.success(project ? "Project updated successfully" : "Project created successfully");
       router.push("/admin/projects");
     } catch (error) {
-      console.error("[v0] Error saving project:", error);
-      alert("Failed to save project. Please try again.");
+      console.error("Error saving project:", error);
+      toast.error("Failed to save project", {
+        description: error instanceof Error ? error.message : "Please try again.",
+      });
     } finally {
       setIsSaving(false);
     }

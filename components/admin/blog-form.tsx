@@ -14,8 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { uploadToCloudinary } from "@/lib/cloudinary";
+import { uploadToCloudinary } from "@/app/actions/cloudinary";
 import { IconLoader2, IconX } from "@tabler/icons-react";
+import { toast } from "sonner";
 
 interface BlogFormProps {
   blog?: Blog;
@@ -60,11 +61,15 @@ export function BlogForm({ blog }: BlogFormProps) {
 
     setIsUploading(true);
     try {
-      const result = await uploadToCloudinary(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadToCloudinary(formData);
       setCoverImage(result.secure_url);
     } catch (error) {
-      console.error("[v0] Error uploading image:", error);
-      alert("Failed to upload image. Please try again.");
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image", {
+        description: error instanceof Error ? error.message : "Please try again.",
+      });
     } finally {
       setIsUploading(false);
     }
@@ -122,10 +127,13 @@ export function BlogForm({ blog }: BlogFormProps) {
         });
       }
 
+      toast.success(blog ? "Blog updated successfully" : "Blog created successfully");
       router.push("/admin/blogs");
     } catch (error) {
-      console.error("[v0] Error saving blog:", error);
-      alert("Failed to save blog. Please try again.");
+      console.error("Error saving blog:", error);
+      toast.error("Failed to save blog", {
+        description: error instanceof Error ? error.message : "Please try again.",
+      });
     } finally {
       setIsSaving(false);
     }

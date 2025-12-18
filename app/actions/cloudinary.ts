@@ -1,3 +1,5 @@
+"use server";
+
 export interface CloudinaryUploadResponse {
   secure_url: string;
   public_id: string;
@@ -6,10 +8,17 @@ export interface CloudinaryUploadResponse {
 }
 
 export async function uploadToCloudinary(
-  file: File
+  formData: FormData
 ): Promise<CloudinaryUploadResponse> {
+  const file = formData.get("file") as File;
+  
+  if (!file) {
+    throw new Error("No file provided");
+  }
+
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default";
+  const uploadPreset =
+    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default";
 
   if (!cloudName) {
     throw new Error(
@@ -17,15 +26,15 @@ export async function uploadToCloudinary(
     );
   }
 
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", uploadPreset);
+  const uploadFormData = new FormData();
+  uploadFormData.append("file", file);
+  uploadFormData.append("upload_preset", uploadPreset);
 
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
     {
       method: "POST",
-      body: formData,
+      body: uploadFormData,
     }
   );
 

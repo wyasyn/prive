@@ -160,15 +160,17 @@ export default function AdminDashboardPage() {
             <CardDescription>Manage your blog content</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button className="w-full">
-              <Link href="/admin/blogs/new">
+            <Link href="/admin/blogs/new" className="w-full block">
+              <Button className="w-full">
                 <Plus className="mr-2 h-4 w-4" />
                 Create New Blog Post
-              </Link>
-            </Button>
-            <Button variant="outline" className="w-full bg-transparent">
-              <Link href="/admin/blogs">View All Blogs</Link>
-            </Button>
+              </Button>
+            </Link>
+            <Link href="/admin/blogs" className="w-full block">
+              <Button variant="outline" className="w-full bg-transparent">
+                View All Blogs
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
@@ -178,15 +180,17 @@ export default function AdminDashboardPage() {
             <CardDescription>Showcase your work</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button className="w-full">
-              <Link href="/admin/projects/new">
+            <Link href="/admin/projects/new" className="w-full block">
+              <Button className="w-full">
                 <Plus className="mr-2 h-4 w-4" />
                 Create New Project
-              </Link>
-            </Button>
-            <Button variant="outline" className="w-full bg-transparent">
-              <Link href="/admin/projects">View All Projects</Link>
-            </Button>
+              </Button>
+            </Link>
+            <Link href="/admin/projects" className="w-full block">
+              <Button variant="outline" className="w-full bg-transparent">
+                View All Projects
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
@@ -199,12 +203,12 @@ export default function AdminDashboardPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="outline" className="w-full bg-transparent">
-                <Link href="/admin/users">
+              <Link href="/admin/users" className="w-full block">
+                <Button variant="outline" className="w-full bg-transparent">
                   <Users className="mr-2 h-4 w-4" />
                   Manage Users
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         )}

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { formatRelativeTime } from "@/lib/utils/format-date";
 import {
   AlertDialog,
@@ -71,8 +72,12 @@ export default function BlogsPage() {
 
       if (error) throw error;
       removeBlog(id);
+      toast.success("Blog deleted successfully");
     } catch (error) {
-      console.error("[v0] Error deleting blog:", error);
+      console.error("Error deleting blog:", error);
+      toast.error("Failed to delete blog", {
+        description: error instanceof Error ? error.message : "Please try again.",
+      });
     }
   };
 
@@ -91,12 +96,12 @@ export default function BlogsPage() {
           <h1 className="text-3xl font-bold tracking-tight">Blog Posts</h1>
           <p className="text-muted-foreground mt-2">Manage your blog content</p>
         </div>
-        <Button>
-          <Link href="/admin/blogs/new">
+        <Link href="/admin/blogs/new">
+          <Button>
             <Plus className="mr-2 h-4 w-4" />
             New Blog Post
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
 
       {blogs.length === 0 ? (
@@ -105,12 +110,12 @@ export default function BlogsPage() {
             <p className="text-muted-foreground mb-4">
               No blog posts yet. Create your first one!
             </p>
-            <Button>
-              <Link href="/admin/blogs/new">
+            <Link href="/admin/blogs/new">
+              <Button>
                 <Plus className="mr-2 h-4 w-4" />
                 Create Blog Post
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       ) : (
@@ -144,21 +149,24 @@ export default function BlogsPage() {
                   {formatRelativeTime(blog.created_at)}
                 </p>
                 <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex-1 bg-transparent"
+                  <Link
+                    href={`/admin/blogs/${blog.id}/edit`}
+                    className="flex-1"
                   >
-                    <Link href={`/admin/blogs/${blog.id}/edit`}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full bg-transparent"
+                    >
                       <Pencil className="mr-2 h-4 w-4" />
                       Edit
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                   <AlertDialog>
-                    <AlertDialogTrigger>
-                      <Button variant="destructive" size="sm">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                    <AlertDialogTrigger
+                      className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 h-9 w-9"
+                    >
+                      <Trash2 className="h-4 w-4" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>

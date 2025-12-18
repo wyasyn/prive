@@ -2,12 +2,10 @@
 
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -59,21 +57,19 @@ export function AdminHeader() {
         </div>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-              <Avatar className="h-10 w-10">
-                <AvatarImage
-                  src={userData?.avatar_url || undefined}
-                  alt={userData?.full_name || "User"}
-                />
-                <AvatarFallback>
-                  {userData?.full_name?.charAt(0).toUpperCase() || "U"}
-                </AvatarFallback>
-              </Avatar>
-            </Button>
+          <DropdownMenuTrigger className="cursor-pointer">
+            <Avatar>
+              <AvatarImage
+                src={userData?.avatar_url || undefined}
+                alt={userData?.full_name || "User"}
+              />
+              <AvatarFallback>
+                {userData?.full_name?.charAt(0).toUpperCase() || "U"}
+              </AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
-            <DropdownMenuLabel className="font-normal">
+            <div className="px-2 py-1.5">
               <div className="flex flex-col gap-1">
                 <p className="text-sm font-medium leading-none">
                   {userData?.full_name}
@@ -85,7 +81,7 @@ export function AdminHeader() {
                   {userData?.role}
                 </p>
               </div>
-            </DropdownMenuLabel>
+            </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <IconLogout className="mr-2 h-4 w-4" />
