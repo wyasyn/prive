@@ -9,7 +9,7 @@ export default function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full overflow-hidden bg-background py-20 lg:py-32"
+      className="relative w-full overflow-hidden bg-background py-20 md:py-32 lg:pb-40 "
     >
       <div className="container flex min-h-[80vh]  flex-col items-center justify-center text-center">
         {/* Availability / Status */}

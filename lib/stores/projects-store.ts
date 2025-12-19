@@ -4,6 +4,7 @@ export interface Project {
   id: string;
   title: string;
   slug: string;
+  category: string;
   short_description: string;
   content: string;
   cover_image: string | null;
@@ -20,6 +21,7 @@ export interface ProjectListItem {
   id: string;
   title: string;
   slug: string;
+  category: string;
   short_description: string;
   cover_image: string | null;
   tags: string[];
