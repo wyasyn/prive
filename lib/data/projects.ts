@@ -1,3 +1,4 @@
+"use server";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
@@ -9,12 +10,11 @@ export interface GetProjectsResult {
 }
 
 export interface Project {
-  id: string;
   slug: string;
   title: string;
   category: string;
-  cover_image: string | null;
-  created_at: string;
+  coverImage: string | null;
+  createdAt: string;
 }
 
 export const getProjects = cache(
@@ -33,9 +33,9 @@ export const getProjects = cache(
       }
 
       // Get paginated projects
-      const { data: projects, error } = await supabase
+      const { data, error } = await supabase
         .from("projects")
-        .select("*")
+        .select("title, slug, category, cover_image, created_at")
         .order("created_at", { ascending: false })
         .range(start, start + limit - 1);
 
@@ -43,8 +43,17 @@ export const getProjects = cache(
         throw error;
       }
 
+      const projects: Project[] =
+        data?.map((project) => ({
+          title: project.title,
+          category: project.category,
+          slug: project.slug,
+          coverImage: project.cover_image,
+          createdAt: project.created_at,
+        })) ?? [];
+
       return {
-        projects: (projects ?? []) as Project[],
+        projects,
         totalItems: count ?? 0,
         totalPages: Math.ceil((count ?? 0) / limit),
         error: null,

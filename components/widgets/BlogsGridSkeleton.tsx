@@ -5,7 +5,7 @@ interface BlogsGridSkeletonProps {
 }
 
 export default function BlogsGridSkeleton({
-  count = 6,
+  count = 4,
 }: BlogsGridSkeletonProps) {
   return (
     <div

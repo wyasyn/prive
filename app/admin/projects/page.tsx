@@ -54,7 +54,7 @@ export default function ProjectsPage() {
       const { data, error } = await supabase
         .from("projects")
         .select(
-          "id, title, slug, short_description, cover_image, tags, featured, created_at"
+          "id, title, slug, category, short_description, cover_image, tags, featured, created_at"
         )
         .order("created_at", { ascending: false });
 
@@ -174,7 +174,7 @@ export default function ProjectsPage() {
                   >
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="lg"
                       className="w-full bg-transparent"
                     >
                       <Pencil className="mr-2 h-4 w-4" />

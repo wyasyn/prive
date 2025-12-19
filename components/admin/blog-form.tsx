@@ -23,7 +23,7 @@ const RichTextEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-64 border rounded-md animate-pulse bg-muted" />
+      <div className="h-64 border rounded-md animate-pulse bg-card" />
     ),
   }
 );

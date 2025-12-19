@@ -18,7 +18,7 @@ interface SingleProjectProps {
 
 export default function SingleProject({ project }: SingleProjectProps) {
   return (
-    <article className="mx-auto max-w-4xl px-4 py-10">
+    <article className="mx-auto max-w-4xl px-4 py-10 md:py-24">
       {/* Header */}
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-muted-foreground">

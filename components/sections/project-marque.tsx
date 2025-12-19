@@ -1,15 +1,17 @@
 import React from "react";
 import { Marquee } from "../ui/marquee";
-import { sampleProjects } from "@/constant/projects-data";
 import VideoImageCard from "../widgets/video-image-card";
 import { HeroImage } from "../widgets/hero-image";
+import { getProjects } from "@/lib/data/projects";
 
-export default function ProjectMarquee() {
+export default async function ProjectMarquee() {
+  const { projects } = await getProjects();
+  if (!projects) return;
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-clip py-12 md:py-16  mt-12 md:mt-16">
       <Marquee pauseOnHover repeat={7} className="[--duration:120s]">
-        {sampleProjects.map((project) => (
-          <VideoImageCard key={project.slug} src={project.cover_image} />
+        {projects.map((project) => (
+          <VideoImageCard key={project.slug} src={project.coverImage!} />
         ))}
       </Marquee>
       {/* Stylish gradient overlays */}

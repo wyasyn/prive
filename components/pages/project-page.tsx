@@ -16,8 +16,7 @@ export default function ProjectsPageComponent({
       <PageTitle
         title="Projects"
         subtitle="Selected work spanning software engineering, AI, and product development."
-        backHref="/"
-        backLabel="Home"
+        backLabel="Back"
       />
       <Suspense fallback={<ProjectsGridSkeleton />}>
         <ProjectsGrid

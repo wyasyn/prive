@@ -25,7 +25,6 @@ export default async function BlogsGrid({
 
   if (blogs.length === 0) {
     return <BlogsEmpty />;
-    return <BlogsEmpty />;
   }
 
   return (
@@ -42,7 +41,7 @@ export default async function BlogsGrid({
             title={blog.title}
             category={blog.category}
             slug={blog.slug}
-            image={blog.cover_image}
+            image={blog.coverImage}
             publishedAt={blog.createdAt}
           />
         ))}

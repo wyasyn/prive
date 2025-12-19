@@ -5,14 +5,14 @@ interface ProjectsGridSkeletonProps {
 }
 
 export default function ProjectsGridSkeleton({
-  count = 6,
+  count = 4,
 }: ProjectsGridSkeletonProps) {
   return (
     <div
       className="
         grid
         gap-6
-       rid-cols-[repeat(auto-fit,minmax(350px,1fr))]
+       grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
       "
     >
       {Array.from({ length: count }).map((_, index) => (

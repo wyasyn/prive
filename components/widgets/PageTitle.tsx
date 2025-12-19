@@ -1,39 +1,28 @@
-import Link from "next/link";
+"use client";
 import { ChevronLeft } from "lucide-react";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface PageTitleProps {
   title: string;
   subtitle?: string;
-  backHref?: string;
+
   backLabel?: string;
 }
 
 export default function PageTitle({
   title,
   subtitle,
-  backHref,
+
   backLabel = "Back",
 }: PageTitleProps) {
+  const router = useRouter();
   return (
     <header className="space-y-4">
-      {backHref && (
-        <Link
-          href={backHref}
-          className="
-            inline-flex
-            items-center
-            gap-1
-            text-sm
-            font-medium
-            text-muted-foreground
-            transition-colors
-            hover:text-foreground
-          "
-        >
-          <ChevronLeft className="h-4 w-4" />
-          {backLabel}
-        </Link>
-      )}
+      <Button variant={"ghost"} onClick={() => router.back()}>
+        <ChevronLeft className="h-4 w-4" />
+        {backLabel}
+      </Button>
 
       <div>
         <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">

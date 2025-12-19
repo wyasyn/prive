@@ -4,13 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ProjectListItem } from "@/lib/stores/projects-store";
+import { formatRelativeTime } from "@/lib/utils/format-date";
 
 type ProjectCardProps = Pick<
   ProjectListItem,
   "title" | "category" | "slug" | "cover_image" | "created_at"
 >;
-
-import { formatDate } from "@/lib/utils";
 
 export default function ProjectCard({
   title,
@@ -44,7 +43,7 @@ export default function ProjectCard({
               {category}
             </span>
             <span className="text-xs text-muted-foreground">
-              {formatDate(publishedAt)}
+              {formatRelativeTime(publishedAt)}
             </span>
           </div>
 

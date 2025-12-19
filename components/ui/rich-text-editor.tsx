@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -244,13 +243,13 @@ export default function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-none min-h-[300px] max-w-none p-4",
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-xl focus:outline-none min-h-[300px] max-w-none p-4 prose-neutral  max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground prose-code:text-foreground prose-pre:bg-muted prose-img:rounded-xl",
       },
     },
   });
 
   return (
-    <div className="border rounded-lg overflow-hidden bg-background">
+    <div className="border rounded-lg overflow-hidden bg-background/30   ">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} placeholder={placeholder} />
     </div>

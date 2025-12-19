@@ -1,3 +1,4 @@
+"use server";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
@@ -5,7 +6,7 @@ export interface Blog {
   title: string;
   category: string;
   slug: string;
-  cover_image: string;
+  coverImage: string;
   createdAt: string;
 }
 
@@ -43,7 +44,7 @@ export const getBlogs = cache(
           title: blog.title,
           category: blog.category,
           slug: blog.slug,
-          cover_image: blog.cover_image,
+          coverImage: blog.cover_image,
           createdAt: blog.created_at,
         })) ?? [];
 

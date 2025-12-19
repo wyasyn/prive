@@ -41,8 +41,8 @@ export default async function ProjectsGrid({
             title={project.title}
             category={project.category}
             slug={project.slug}
-            cover_image={project.cover_image!}
-            created_at={project.created_at}
+            cover_image={project.coverImage!}
+            created_at={project.createdAt}
           />
         ))}
       </div>

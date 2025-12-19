@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { formatDate } from "@/lib/utils";
+import { formatRelativeTime } from "@/lib/utils/format-date";
 
 interface BlogCardProps {
   title: string;
@@ -45,7 +45,7 @@ export default function BlogCard({
               {category}
             </span>
             <span className="text-xs text-muted-foreground">
-              {formatDate(publishedAt)}
+              {formatRelativeTime(publishedAt)}
             </span>
           </div>
 

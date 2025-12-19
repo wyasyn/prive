@@ -17,8 +17,7 @@ export default function BlogPageComponent({
       <PageTitle
         title="Blog"
         subtitle="Insights, tutorials, and thoughts on software engineering, AI, and product development."
-        backHref="/"
-        backLabel="Home"
+        backLabel="Back"
       />
       <Suspense fallback={<BlogsGridSkeleton />}>
         <BlogsGrid
