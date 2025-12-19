@@ -1,7 +1,12 @@
-import React from "react";
+import BlogPageComponent from "@/components/pages/blog-page";
 
-function BlogPage() {
-  return <div>BlogPage</div>;
-}
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const BlogPage = async (props: { searchParams: SearchParams }) => {
+  const searchParams = await props.searchParams;
+
+  const page = Number(searchParams.page ?? 1);
+
+  return <BlogPageComponent page={page} />;
+};
 
 export default BlogPage;

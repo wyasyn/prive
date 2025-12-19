@@ -50,3 +50,25 @@ export const sampleBlogs: BlogListItem[] = [
     created_at: "2025-02-18T08:20:00Z",
   },
 ];
+
+interface GetBlogsParams {
+  page?: number;
+  limit?: number;
+}
+
+export function getBlogs({ page = 1, limit = 6 }: GetBlogsParams) {
+  const totalItems = sampleBlogs.length;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  const start = (page - 1) * limit;
+  const end = start + limit;
+
+  const blogs = sampleBlogs.slice(start, end);
+
+  return {
+    blogs,
+    totalPages,
+    totalItems,
+    currentPage: page,
+  };
+}

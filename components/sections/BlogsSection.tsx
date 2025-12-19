@@ -13,7 +13,7 @@ export default function BlogsSection() {
       />
 
       <Suspense fallback={<BlogsGridSkeleton />}>
-        <BlogsGrid />
+        <BlogsGrid page={1} limit={3} minWidth={300} />
       </Suspense>
     </section>
   );

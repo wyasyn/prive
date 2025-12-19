@@ -3,31 +3,33 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { ProjectListItem } from "@/lib/stores/projects-store";
 
-interface ProjectCardProps {
-  title: string;
-  category: string;
-  slug: string;
-  image: string;
-}
+type ProjectCardProps = Pick<
+  ProjectListItem,
+  "title" | "category" | "slug" | "cover_image" | "created_at"
+>;
+
+import { formatDate } from "@/lib/utils";
 
 export default function ProjectCard({
   title,
   category,
   slug,
-  image,
+  cover_image: image,
+  created_at: publishedAt,
 }: ProjectCardProps) {
   return (
     <motion.article
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md"
+      className="group overflow-hidden "
     >
       <Link href={`/projects/${slug}`} className="block">
         {/* Image */}
-        <div className="relative aspect-video w-full overflow-hidden">
+        <div className="relative aspect-video rounded-2xl w-full overflow-hidden">
           <Image
-            src={image}
+            src={image!}
             alt={title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -35,13 +37,21 @@ export default function ProjectCard({
         </div>
 
         {/* Content */}
-        <div className="p-5">
-          <h3 className="text-lg font-semibold text-foreground line-clamp-1">
+        <div className="space-y-4 p-5 bg-secondary/95 dark:bg-secondary/30 rounded-2xl mt-3">
+          {/* Meta */}
+          <div className="flex items-center justify-between">
+            <span className="rounded-full bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+              {category}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {formatDate(publishedAt)}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-lg font-medium leading-snug text-foreground line-clamp-1">
             {title}
           </h3>
-          <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-            {category}
-          </p>
         </div>
       </Link>
     </motion.article>

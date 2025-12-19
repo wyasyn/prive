@@ -13,7 +13,7 @@ export default function ProjectsSection() {
       />
 
       <Suspense fallback={<ProjectsGridSkeleton />}>
-        <ProjectsGrid />
+        <ProjectsGrid page={1} limit={3} minWidth={300} />
       </Suspense>
     </section>
   );
