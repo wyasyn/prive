@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { cn } from "@/lib/utils";
 
 const ceraPro = localFont({
   src: [
@@ -95,7 +96,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={ceraPro.variable} suppressHydrationWarning>
+    <html lang="en" className={cn(ceraPro.variable)} suppressHydrationWarning>
       <body className={`antialiased`}>
         <ThemeProvider
           attribute="class"

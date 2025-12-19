@@ -1,15 +1,20 @@
 "use client";
-import { useState } from "react";
+
 import { motion, AnimatePresence } from "motion/react";
 import { IconMoon, IconSun } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
+import { useMounted } from "@/hooks/useMount";
 
 export const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
-
+  const { resolvedTheme, setTheme } = useTheme();
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
+
+  const isDark = resolvedTheme === "dark";
+
+  const mounted = useMounted();
+  if (!mounted) return null;
 
   return (
     <motion.button

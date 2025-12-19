@@ -21,9 +21,10 @@ export default function HeroSection() {
         {/* Primary Heading (SEO Critical) */}
         <h1
           id="hero-heading"
-          className="max-w-4xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl"
+          className="max-w-4xl text-4xl  font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl"
         >
-          Yasin Walum
+          <span>Yasin Walum</span>
+
           <span className="block text-muted-foreground">Software Engineer</span>
         </h1>
 
