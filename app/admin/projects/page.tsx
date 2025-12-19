@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useRequireAuth } from "@/lib/hooks/use-require-auth";
@@ -76,7 +77,8 @@ export default function ProjectsPage() {
     } catch (error) {
       console.error("Error deleting project:", error);
       toast.error("Failed to delete project", {
-        description: error instanceof Error ? error.message : "Please try again.",
+        description:
+          error instanceof Error ? error.message : "Please try again.",
       });
     }
   };
@@ -180,9 +182,7 @@ export default function ProjectsPage() {
                     </Button>
                   </Link>
                   <AlertDialog>
-                    <AlertDialogTrigger
-                      className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 h-9 w-9"
-                    >
+                    <AlertDialogTrigger className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground shadow hover:bg-destructive/90 h-9 w-9">
                       <Trash2 className="h-4 w-4" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
