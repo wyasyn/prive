@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { useBlogsStore, type Blog } from "@/lib/stores/blogs-store";
@@ -18,44 +17,63 @@ import { uploadToCloudinary } from "@/app/actions/cloudinary";
 import { IconLoader2, IconX } from "@tabler/icons-react";
 import { toast } from "sonner";
 
+// Dynamically import Tiptap Editor to avoid SSR issues
+const RichTextEditor = dynamic(
+  () => import("@/components/ui/rich-text-editor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-64 border rounded-md animate-pulse bg-muted" />
+    ),
+  }
+);
+
 interface BlogFormProps {
   blog?: Blog;
 }
 
 export function BlogForm({ blog }: BlogFormProps) {
   const router = useRouter();
-  const { userData } = useAuthStore();
-  const { addBlog, updateBlog } = useBlogsStore();
   const supabase = createClient();
 
-  const [title, setTitle] = useState(blog?.title || "");
-  const [slug, setSlug] = useState(blog?.slug || "");
+  const { userData } = useAuthStore();
+  const { addBlog, updateBlog } = useBlogsStore();
+
+  const [title, setTitle] = useState(blog?.title ?? "");
+  const [slug, setSlug] = useState(blog?.slug ?? "");
+  const [category, setCategory] = useState(blog?.category ?? "");
   const [shortDescription, setShortDescription] = useState(
-    blog?.short_description || ""
+    blog?.short_description ?? ""
   );
-  const [content, setContent] = useState(blog?.content || "");
-  const [coverImage, setCoverImage] = useState(blog?.cover_image || "");
-  const [published, setPublished] = useState(blog?.published || false);
+  const [content, setContent] = useState(blog?.content ?? "");
+  const [coverImage, setCoverImage] = useState(blog?.cover_image ?? "");
+  const [published, setPublished] = useState(blog?.published ?? false);
+
   const [isUploading, setIsUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const generateSlug = (text: string) => {
-    return text
+  const generateSlug = (text: string): string =>
+    text
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
-  };
 
-  const handleTitleChange = (value: string) => {
+  /**
+   * Slug is generated ONLY when creating a blog.
+   * On edit, slug is preserved and never updated.
+   */
+  const handleTitleChange = (value: string): void => {
     setTitle(value);
     if (!blog) {
       setSlug(generateSlug(value));
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -66,16 +84,15 @@ export function BlogForm({ blog }: BlogFormProps) {
       const result = await uploadToCloudinary(formData);
       setCoverImage(result.secure_url);
     } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("Failed to upload image", {
-        description: error instanceof Error ? error.message : "Please try again.",
-      });
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to upload image";
+      toast.error(errorMessage);
     } finally {
       setIsUploading(false);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setIsSaving(true);
 
@@ -83,6 +100,7 @@ export function BlogForm({ blog }: BlogFormProps) {
       const blogData = {
         title,
         slug,
+        category,
         short_description: shortDescription,
         content,
         cover_image: coverImage || null,
@@ -91,7 +109,6 @@ export function BlogForm({ blog }: BlogFormProps) {
       };
 
       if (blog) {
-        // Update existing blog
         const { error } = await supabase
           .from("blogs")
           .update(blogData)
@@ -102,12 +119,12 @@ export function BlogForm({ blog }: BlogFormProps) {
         updateBlog(blog.id, {
           title,
           slug,
+          category,
           short_description: shortDescription,
           cover_image: coverImage || null,
           published,
         });
       } else {
-        // Create new blog
         const { data, error } = await supabase
           .from("blogs")
           .insert(blogData)
@@ -120,6 +137,7 @@ export function BlogForm({ blog }: BlogFormProps) {
           id: data.id,
           title: data.title,
           slug: data.slug,
+          category: data.category,
           short_description: data.short_description,
           cover_image: data.cover_image,
           published: data.published,
@@ -127,13 +145,14 @@ export function BlogForm({ blog }: BlogFormProps) {
         });
       }
 
-      toast.success(blog ? "Blog updated successfully" : "Blog created successfully");
+      toast.success(
+        blog ? "Blog updated successfully" : "Blog created successfully"
+      );
       router.push("/admin/blogs");
     } catch (error) {
-      console.error("Error saving blog:", error);
-      toast.error("Failed to save blog", {
-        description: error instanceof Error ? error.message : "Please try again.",
-      });
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to add blog";
+      toast.error(errorMessage);
     } finally {
       setIsSaving(false);
     }
@@ -144,59 +163,51 @@ export function BlogForm({ blog }: BlogFormProps) {
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+            <Label>Title</Label>
             <Input
-              id="title"
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
-              placeholder="Enter blog title"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="slug">Slug</Label>
+            <Label>Category</Label>
             <Input
-              id="slug"
-              value={slug}
-              onChange={(e) => setSlug(generateSlug(e.target.value))}
-              placeholder="blog-post-slug"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="Tech, AI, Tutorials, Opinion"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="short-description">Short Description</Label>
+            <Label>Short Description</Label>
             <Textarea
-              id="short-description"
               value={shortDescription}
               onChange={(e) => setShortDescription(e.target.value)}
-              placeholder="Brief description for preview"
               rows={3}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="content">Content</Label>
-            <Textarea
-              id="content"
+            <Label>Content</Label>
+            <RichTextEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={setContent}
               placeholder="Write your blog content here..."
-              rows={12}
-              required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="cover-image">Cover Image</Label>
+            <Label>Cover Image</Label>
             {coverImage ? (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+              <div className="relative aspect-video overflow-hidden rounded-lg border">
                 <img
-                  src={coverImage || "/placeholder.svg"}
-                  alt="Cover"
+                  src={coverImage}
                   className="h-full w-full object-cover"
+                  alt={title}
                 />
                 <Button
                   type="button"
@@ -211,7 +222,6 @@ export function BlogForm({ blog }: BlogFormProps) {
             ) : (
               <div className="flex items-center gap-2">
                 <Input
-                  id="cover-image"
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
@@ -225,12 +235,8 @@ export function BlogForm({ blog }: BlogFormProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <Switch
-              id="published"
-              checked={published}
-              onCheckedChange={setPublished}
-            />
-            <Label htmlFor="published">Publish immediately</Label>
+            <Switch checked={published} onCheckedChange={setPublished} />
+            <Label>Publish immediately</Label>
           </div>
 
           <div className="flex gap-4">
@@ -240,6 +246,7 @@ export function BlogForm({ blog }: BlogFormProps) {
               )}
               {blog ? "Update Blog" : "Create Blog"}
             </Button>
+
             <Button
               type="button"
               variant="outline"

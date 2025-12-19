@@ -1,6 +1,8 @@
-import { sampleProjects } from "@/constant/projects-data";
 import Pagination from "../widgets/Pagination";
 import ProjectCard from "../widgets/project-card";
+import { getProjects } from "@/lib/data/projects";
+import { ProjectsError } from "../widgets/ProjectsError";
+import { ProjectsEmpty } from "../widgets/ProjectsEmpty";
 
 interface ProjectsGridProps {
   page: number;
@@ -15,13 +17,15 @@ export default async function ProjectsGrid({
   minWidth = 300,
   showPagination = false,
 }: ProjectsGridProps) {
-  // DATA FETCHING (Suspense-enabled)
-  const totalItems = sampleProjects.length;
-  const totalPages = Math.ceil(totalItems / limit);
+  const { projects, totalPages, error } = await getProjects(page, limit);
 
-  const start = (page - 1) * limit;
-  const end = start + limit;
-  const projects = sampleProjects.slice(start, end);
+  if (error) {
+    <ProjectsError error={error} />;
+  }
+
+  if (projects.length === 0) {
+    return <ProjectsEmpty />;
+  }
 
   return (
     <>

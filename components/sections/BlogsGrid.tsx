@@ -1,6 +1,8 @@
-import { sampleBlogs } from "@/constant/blog-data";
 import BlogCard from "../widgets/BlogCard";
+import { BlogsEmpty } from "../widgets/BlogsEmpty";
+import { BlogsError } from "../widgets/BlogsError";
 import Pagination from "../widgets/Pagination";
+import { getBlogs } from "@/lib/data/blogs";
 
 interface BlogsGridProps {
   page: number;
@@ -15,14 +17,16 @@ export default async function BlogsGrid({
   minWidth = 300,
   showPagination = false,
 }: BlogsGridProps) {
-  // DATA FETCHING (Suspense-enabled)
-  // Later: replace with Payload CMS query
-  const totalItems = sampleBlogs.length;
-  const totalPages = Math.ceil(totalItems / limit);
+  const { blogs, totalPages, error } = await getBlogs(page, limit);
 
-  const start = (page - 1) * limit;
-  const end = start + limit;
-  const blogs = sampleBlogs.slice(start, end);
+  if (error) {
+    return <BlogsError error={error} />;
+  }
+
+  if (blogs.length === 0) {
+    return <BlogsEmpty />;
+    return <BlogsEmpty />;
+  }
 
   return (
     <>
@@ -38,8 +42,8 @@ export default async function BlogsGrid({
             title={blog.title}
             category={blog.category}
             slug={blog.slug}
-            image={blog.cover_image!}
-            publishedAt={blog.created_at}
+            image={blog.cover_image}
+            publishedAt={blog.createdAt}
           />
         ))}
       </div>

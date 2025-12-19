@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { useProjectsStore, type Project } from "@/lib/stores/projects-store";
@@ -18,47 +17,66 @@ import { uploadToCloudinary } from "@/app/actions/cloudinary";
 import { IconLoader2, IconX } from "@tabler/icons-react";
 import { toast } from "sonner";
 
+// Dynamically import Tiptap Editor to avoid SSR issues
+const RichTextEditor = dynamic(
+  () => import("@/components/ui/rich-text-editor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-64 border rounded-md animate-pulse bg-muted" />
+    ),
+  }
+);
+
 interface ProjectFormProps {
   project?: Project;
 }
 
 export function ProjectForm({ project }: ProjectFormProps) {
   const router = useRouter();
-  const { userData } = useAuthStore();
-  const { addProject, updateProject } = useProjectsStore();
   const supabase = createClient();
 
-  const [title, setTitle] = useState(project?.title || "");
-  const [slug, setSlug] = useState(project?.slug || "");
+  const { userData } = useAuthStore();
+  const { addProject, updateProject } = useProjectsStore();
+
+  const [title, setTitle] = useState(project?.title ?? "");
+  const [slug, setSlug] = useState(project?.slug ?? "");
+  const [category, setCategory] = useState(project?.category ?? "");
   const [shortDescription, setShortDescription] = useState(
-    project?.short_description || ""
+    project?.short_description ?? ""
   );
-  const [content, setContent] = useState(project?.content || "");
-  const [coverImage, setCoverImage] = useState(project?.cover_image || "");
-  const [demoUrl, setDemoUrl] = useState(project?.demo_url || "");
-  const [githubUrl, setGithubUrl] = useState(project?.github_url || "");
-  const [tags, setTags] = useState(project?.tags?.join(", ") || "");
-  const [featured, setFeatured] = useState(project?.featured || false);
+  const [content, setContent] = useState(project?.content ?? "");
+  const [coverImage, setCoverImage] = useState(project?.cover_image ?? "");
+  const [demoUrl, setDemoUrl] = useState(project?.demo_url ?? "");
+  const [githubUrl, setGithubUrl] = useState(project?.github_url ?? "");
+  const [tags, setTags] = useState(project?.tags?.join(", ") ?? "");
+  const [featured, setFeatured] = useState(project?.featured ?? false);
+
   const [isUploading, setIsUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const generateSlug = (text: string) => {
-    return text
+  const generateSlug = (text: string): string =>
+    text
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
-  };
 
-  const handleTitleChange = (value: string) => {
+  /**
+   * Slug is generated ONLY when creating a project.
+   * When editing, slug is preserved and never updated.
+   */
+  const handleTitleChange = (value: string): void => {
     setTitle(value);
     if (!project) {
       setSlug(generateSlug(value));
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -69,28 +87,28 @@ export function ProjectForm({ project }: ProjectFormProps) {
       const result = await uploadToCloudinary(formData);
       setCoverImage(result.secure_url);
     } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("Failed to upload image", {
-        description: error instanceof Error ? error.message : "Please try again.",
-      });
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to upload image";
+      toast.error(errorMessage);
     } finally {
       setIsUploading(false);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setIsSaving(true);
 
     try {
       const tagsArray = tags
         .split(",")
-        .map((tag) => tag.trim())
-        .filter((tag) => tag.length > 0);
+        .map((t) => t.trim())
+        .filter(Boolean);
 
       const projectData = {
         title,
         slug,
+        category,
         short_description: shortDescription,
         content,
         cover_image: coverImage || null,
@@ -102,7 +120,6 @@ export function ProjectForm({ project }: ProjectFormProps) {
       };
 
       if (project) {
-        // Update existing project
         const { error } = await supabase
           .from("projects")
           .update(projectData)
@@ -113,13 +130,13 @@ export function ProjectForm({ project }: ProjectFormProps) {
         updateProject(project.id, {
           title,
           slug,
+          category,
           short_description: shortDescription,
           cover_image: coverImage || null,
           tags: tagsArray,
           featured,
         });
       } else {
-        // Create new project
         const { data, error } = await supabase
           .from("projects")
           .insert(projectData)
@@ -132,6 +149,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
           id: data.id,
           title: data.title,
           slug: data.slug,
+          category: data.category,
           short_description: data.short_description,
           cover_image: data.cover_image,
           tags: data.tags,
@@ -140,13 +158,16 @@ export function ProjectForm({ project }: ProjectFormProps) {
         });
       }
 
-      toast.success(project ? "Project updated successfully" : "Project created successfully");
+      toast.success(
+        project
+          ? "Project updated successfully"
+          : "Project created successfully"
+      );
       router.push("/admin/projects");
     } catch (error) {
-      console.error("Error saving project:", error);
-      toast.error("Failed to save project", {
-        description: error instanceof Error ? error.message : "Please try again.",
-      });
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to add project";
+      toast.error(errorMessage);
     } finally {
       setIsSaving(false);
     }
@@ -157,59 +178,51 @@ export function ProjectForm({ project }: ProjectFormProps) {
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+            <Label>Title</Label>
             <Input
-              id="title"
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
-              placeholder="Enter project title"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="slug">Slug</Label>
+            <Label>Category</Label>
             <Input
-              id="slug"
-              value={slug}
-              onChange={(e) => setSlug(generateSlug(e.target.value))}
-              placeholder="project-slug"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="Web, Mobile, AI, Backend"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="short-description">Short Description</Label>
+            <Label>Short Description</Label>
             <Textarea
-              id="short-description"
               value={shortDescription}
               onChange={(e) => setShortDescription(e.target.value)}
-              placeholder="Brief description for preview"
               rows={3}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="content">Content</Label>
-            <Textarea
-              id="content"
+            <Label>Content</Label>
+            <RichTextEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Detailed project description..."
-              rows={12}
-              required
+              onChange={setContent}
+              placeholder="Write your project content here..."
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="cover-image">Cover Image</Label>
+            <Label>Cover Image</Label>
             {coverImage ? (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+              <div className="relative aspect-video overflow-hidden rounded-lg border">
                 <img
-                  src={coverImage || "/placeholder.jpg"}
-                  alt="Cover"
+                  src={coverImage}
                   className="h-full w-full object-cover"
+                  alt={title}
                 />
                 <Button
                   type="button"
@@ -224,14 +237,13 @@ export function ProjectForm({ project }: ProjectFormProps) {
             ) : (
               <div className="flex items-center gap-2">
                 <Input
-                  id="cover-image"
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
                   disabled={isUploading}
                 />
                 {isUploading && (
-                  <IconLoader2 className="h-4 w-4 animate-spin" />
+                  <IconLoader2 className="animate-spin h-4 w-4" />
                 )}
               </div>
             )}
@@ -239,45 +251,36 @@ export function ProjectForm({ project }: ProjectFormProps) {
 
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="demo-url">Demo URL</Label>
+              <Label>Demo URL</Label>
               <Input
-                id="demo-url"
                 type="url"
                 value={demoUrl}
                 onChange={(e) => setDemoUrl(e.target.value)}
-                placeholder="https://demo.example.com"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="github-url">GitHub URL</Label>
+              <Label>GitHub URL</Label>
               <Input
-                id="github-url"
                 type="url"
                 value={githubUrl}
                 onChange={(e) => setGithubUrl(e.target.value)}
-                placeholder="https://github.com/username/repo"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tags">Tags</Label>
+            <Label>Tags</Label>
             <Input
-              id="tags"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
-              placeholder="React, Next.js, TypeScript (comma separated)"
+              placeholder="React, Next.js, Supabase"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <Switch
-              id="featured"
-              checked={featured}
-              onCheckedChange={setFeatured}
-            />
-            <Label htmlFor="featured">Feature this project</Label>
+            <Switch checked={featured} onCheckedChange={setFeatured} />
+            <Label>Feature this project</Label>
           </div>
 
           <div className="flex gap-4">
@@ -287,6 +290,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
               )}
               {project ? "Update Project" : "Create Project"}
             </Button>
+
             <Button
               type="button"
               variant="outline"
