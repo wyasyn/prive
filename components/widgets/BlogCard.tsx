@@ -50,7 +50,7 @@ export default function BlogCard({
           </div>
 
           {/* Title */}
-          <h3 className="text-lg font-medium leading-snug text-foreground line-clamp-1">
+          <h3 className=" text-sm font-medium leading-snug text-foreground line-clamp-2 ">
             {title}
           </h3>
         </div>
