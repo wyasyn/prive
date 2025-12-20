@@ -173,3 +173,5 @@ export interface PricingTier {
   priceLabel: string; // Display only, not numeric logic
   highlighted?: boolean;
 }
+
+export type ContactType = "email" | "whatsapp" | "location";

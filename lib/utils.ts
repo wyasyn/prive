@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,4 +21,15 @@ export function formatDate(
     day: "2-digit",
     year: "numeric",
   }).format(parsedDate);
+}
+
+export function formatPhoneNumber(
+  value: string,
+  defaultCountry: "UG" | "US" | "KE" = "UG"
+) {
+  const phone = parsePhoneNumberFromString(value, defaultCountry);
+
+  if (!phone) return value;
+
+  return phone.formatInternational();
 }

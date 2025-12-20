@@ -1,3 +1,4 @@
+import CallToAction from "@/components/sections/callToAction";
 import { Footer } from "@/components/sections/footer";
 import { NavigationBar } from "@/components/sections/main-nav";
 import React from "react";
@@ -11,6 +12,7 @@ export default function MainLayout({
     <div className="flex min-h-screen flex-col">
       <NavigationBar />
       <main className=" flex-1 ">{children}</main>
+      <CallToAction />
       <Footer />
     </div>
   );
