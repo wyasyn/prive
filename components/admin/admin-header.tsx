@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { IconLogout } from "@tabler/icons-react";
+import Image from "next/image";
 
 export function AdminHeader() {
   const { userData, clear } = useAuthStore();
@@ -30,7 +31,12 @@ export function AdminHeader() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/admin" className="flex items-center gap-2">
-            <h1 className="text-xl font-bold">Portfolio Admin</h1>
+            <Image
+              src={"/favicon-32x32.png"}
+              alt="Yasin Walum Logo"
+              width={32}
+              height={32}
+            />
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link

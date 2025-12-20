@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import Image from "next/image";
 
-export const Logo = ({ name = "Walum." }) => (
+export const Logo = () => (
   <Link href="/" aria-label="Home" title="Yasin Walum">
-    <Button
-      variant={"ghost"}
-      size={"lg"}
-      className={"cursor-pointer text-foreground text-lg"}
-    >
-      {name}
-    </Button>
+    <Image
+      src={"/favicon-32x32.png"}
+      alt="Yasin Walum Logo"
+      width={32}
+      height={32}
+    />
   </Link>
 );

@@ -16,7 +16,7 @@ export const NavigationBar = () => {
       <div className="container flex h-14 items-center justify-between">
         {/* Left Section: Logo and Main Links */}
         <div className="flex items-center space-x-8">
-          <Logo name={"Walum."} />
+          <Logo />
           <MainNavLinks />
         </div>
 
