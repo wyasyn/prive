@@ -1,5 +1,5 @@
 import SingleBlog from "@/components/widgets/SingleBlog";
-import { getBlogBySlug, getBlogs } from "@/lib/data/blogs";
+import { getBlogBySlug } from "@/lib/data/blogs";
 import { supabaseStatic } from "@/lib/supabase/static";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

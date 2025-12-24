@@ -103,7 +103,9 @@ export const Footer = () => {
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col gap-4 border-t border-border/50 pt-6 md:flex-row md:items-center md:justify-between">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Yasin Walum. All rights reserved.
+              © {new Date().getFullYear()}{" "}
+              <span className="text-foreground">Yasin Walum.</span> All rights
+              reserved.
             </p>
 
             <p className="text-xs text-muted-foreground">

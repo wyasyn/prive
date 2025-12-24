@@ -1,4 +1,5 @@
 import Image from "next/image";
+import BackButton from "./back-button";
 
 interface SingleBlogProps {
   blog: {
@@ -14,6 +15,7 @@ interface SingleBlogProps {
 export default function SingleBlog({ blog }: SingleBlogProps) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 md:py-24">
+      <BackButton />
       {/* Header */}
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-muted-foreground">

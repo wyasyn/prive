@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import BackButton from "./back-button";
 
 interface SingleProjectProps {
   project: {
@@ -19,6 +20,7 @@ interface SingleProjectProps {
 export default function SingleProject({ project }: SingleProjectProps) {
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 md:py-24">
+      <BackButton />
       {/* Header */}
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-muted-foreground">

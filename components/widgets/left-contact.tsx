@@ -1,4 +1,9 @@
-import { IconBrandWhatsapp, IconLocation, IconMail } from "@tabler/icons-react";
+import {
+  IconBrandWhatsapp,
+  IconGlobe,
+  IconLocation,
+  IconMail,
+} from "@tabler/icons-react";
 import EmailCard from "../widgets/email-card";
 
 const contactInfo = [
@@ -27,8 +32,8 @@ export default function LeftContactSide() {
     <div className="flex h-full flex-col justify-between gap-4 p-8">
       {/* TOP CONTENT */}
       <div className="space-y-6">
-        <span className="inline-flex w-fit rounded-full border px-3 py-1 text-xs">
-          Contact
+        <span className="inline-flex w-fit rounded-full border px-3 py-1 text-xs gap-1 items-center">
+          <IconGlobe className="w-5 h-5" /> Contact
         </span>
 
         <div className="space-y-2">

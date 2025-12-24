@@ -19,7 +19,7 @@ export default function PageTitle({
   const router = useRouter();
   return (
     <header className="space-y-4">
-      <Button variant={"ghost"} onClick={() => router.back()}>
+      <Button variant={"outline"} onClick={() => router.back()}>
         <ChevronLeft className="h-4 w-4" />
         {backLabel}
       </Button>
@@ -30,7 +30,7 @@ export default function PageTitle({
         </h1>
 
         {subtitle && (
-          <p className="mt-3 max-w-2xl text-base text-muted-foreground">
+          <p className="mt-3 max-w-[45ch] text-base text-muted-foreground">
             {subtitle}
           </p>
         )}
