@@ -84,7 +84,7 @@ const FAQSection = () => {
                 className="rounded-xl border border-border/60 px-4 bg-card/60"
               >
                 <AccordionTrigger className="flex items-center gap-3 text-left">
-                  <Icon className="h-5 w-5 text-primary shrink-0" />
+                  <Icon className="h-5 w-5 text-muted-foreground/80 shrink-0" />
                   <span>{question}</span>
                 </AccordionTrigger>
                 <AccordionContent className="pl-8 text-muted-foreground">

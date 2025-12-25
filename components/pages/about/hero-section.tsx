@@ -27,7 +27,7 @@ const HeroSection = () => {
           <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
             About me
           </p>
-          <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+          <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
             Hey, I<span className="font-mono">&apos;</span>m
             <br />
             Yasin Walum
