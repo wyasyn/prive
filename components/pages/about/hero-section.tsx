@@ -33,9 +33,11 @@ const HeroSection = () => {
             Yasin Walum
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I<span className="font-mono">&apos;</span>m a photographer focused
-            on fashion, portrait, and commercial work — blending natural light
-            with intentional storytelling.
+            I<span className="font-mono">&apos;</span>m a full stack software
+            engineer based in Kampala, Uganda, building modern web and mobile
+            applications. I work across frontend and backend systems, focusing
+            on clean architecture, performance, and real
+            <span className="font-mono">-</span>world usability.
           </p>
           <Link href="/projects" aria-label="View my work">
             <Button variant={"outline"} size="lg" className={"items-center"}>

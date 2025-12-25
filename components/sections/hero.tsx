@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { IconMail } from "@tabler/icons-react";
+import { ChevronRight, FolderOpen } from "lucide-react";
 import ProjectMarquee from "./project-marque";
 
 export default function HeroSection() {
@@ -15,7 +14,7 @@ export default function HeroSection() {
         {/* Availability / Status */}
         <Badge className="mb-6 inline-flex items-center rounded-full bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
           <span className="mr-1 h-2 w-2 animate-pulse rounded-full bg-primary" />
-          Available for projects
+          Open to freelance & full-time roles
         </Badge>
 
         {/* Primary Heading (SEO Critical) */}
@@ -30,27 +29,29 @@ export default function HeroSection() {
 
         {/* Supporting SEO Description */}
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground max-sm:text-balance">
-          I build web and mobile applications with an emphasis on clean
-          architecture, scalability, security, and usability.
+          I design and build scalable web and mobile applications, working
+          across frontend interfaces, backend systems, and APIs.
         </p>
 
         {/* Call to Actions */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/contact" passHref>
+          {/* Primary CTA */}
+          <Link href="/contact">
             <Button size="lg" className="cursor-pointer px-4 group">
-              Let’s Talk{" "}
-              <ChevronRight className="ml-1 h-4 w-4 group-hover:ml-2 duration-200 " />
+              Contact Me
+              <ChevronRight className="ml-1 h-4 w-4 group-hover:ml-2 duration-200" />
             </Button>
           </Link>
 
-          <Link href="mailto:mail@yasinwalum.com">
+          {/* Secondary CTA */}
+          <Link href="/projects">
             <Button
               size="lg"
               variant="outline"
               className="cursor-pointer px-4 group"
             >
-              Email Me{" "}
-              <IconMail className="ml-1 h-4 w-4 group-hover:ml-2 duration-200" />
+              View Projects
+              <FolderOpen className="ml-1 h-4 w-4 group-hover:ml-2 duration-200" />
             </Button>
           </Link>
         </div>
