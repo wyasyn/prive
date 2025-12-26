@@ -27,8 +27,8 @@ const HeroSection = () => {
           <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
             About me
           </p>
-          <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            Hey, I<span className="font-serif">&apos;</span>m
+          <h1 className="text-5xl font-display lg:text-6xl  leading-tight">
+            Hey, I&apos;m
             <br />
             Yasin Walum
           </h1>

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import PageTitle from "../widgets/PageTitle";
 import ProjectsGrid from "../sections/ProjectsGrid";
 import ProjectsGridSkeleton from "../widgets/ProjectsGridSkeleton";
+import { PageHeader } from "../widgets/page-header";
 
 export default function ProjectsPageComponent({
   page,
@@ -13,11 +13,12 @@ export default function ProjectsPageComponent({
 }) {
   return (
     <section className="space-y-10 container pt-14 md:pt-24 pb-32 md:pb-40 ">
-      <PageTitle
-        title="Projects"
-        subtitle="Selected work spanning software engineering, AI, and product development."
-        backLabel="Back"
+      <PageHeader
+        eyebrow="Projects"
+        title="Selected Work"
+        description="A curated selection of projects showcasing my experience in web development, system design, and problem-solving."
       />
+
       <Suspense fallback={<ProjectsGridSkeleton />}>
         <ProjectsGrid
           page={page}

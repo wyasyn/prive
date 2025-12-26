@@ -7,6 +7,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ServiceCard from "../services/service-card";
 import { Button } from "../ui/button";
+import { PageHeader } from "../widgets/page-header";
 
 export default function ServicesPage() {
   const [page, setPage] = useState(0);
@@ -26,21 +27,11 @@ export default function ServicesPage() {
     <div>
       <div className="container py-24 lg:py-32">
         {/* Header */}
-        <div className="mb-12">
-          <p className="text-primary font-medium mb-3 tracking-wide text-sm">
-            SERVICES
-          </p>
-          <div className="flex items-start justify-between">
-            <div className="max-w-xl">
-              <h1 className="text-5xl font-bold mb-4">What I do best</h1>
-              <p>
-                I help brands, founders, and creatives build strong identities,
-                launch high<span className="font-serif">-</span>quality
-                websites, and grow with confidence.
-              </p>
-            </div>
-          </div>
-        </div>
+        <PageHeader
+          eyebrow="Services"
+          title="What I do best"
+          description="I help brands, founders, and creatives build strong identities, launch high-quality websites, and grow with confidence."
+        />
 
         {/* Services Cards */}
         <div className="flex gap-4 mb-8">
