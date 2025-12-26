@@ -87,7 +87,7 @@ const FAQSection = () => {
                   <Icon className="h-5 w-5 text-muted-foreground/80 shrink-0" />
                   <span>{question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="pl-8 text-muted-foreground">
+                <AccordionContent className="pl-8 text-muted-foreground bg-secondary/70 rounded-lg py-2 mb-3">
                   {answer}
                 </AccordionContent>
               </AccordionItem>

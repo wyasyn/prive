@@ -3,12 +3,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ServiceCard } from "./servicecard";
 import { SERVICES } from "@/constant/data";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowRightBigIcon } from "@hugeicons/core-free-icons";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { ServiceLinkCard } from "./servicecard";
 
 export const ServicesDropdown = () => {
   const [open, setOpen] = useState(false);
@@ -50,8 +50,8 @@ export const ServicesDropdown = () => {
       "
           >
             <div className="grid grid-cols-2 gap-5">
-              {SERVICES.slice(0, -2).map((service) => (
-                <ServiceCard key={service.title} service={service} />
+              {SERVICES.slice(0, 4).map((service) => (
+                <ServiceLinkCard key={service.id} service={service} />
               ))}
             </div>
             <div className="mt-6 border-t border-border/50 pt-4">

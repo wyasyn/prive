@@ -56,7 +56,7 @@ export const Footer = () => {
                 {SERVICES.map((service) => (
                   <li key={service.title}>
                     <Link
-                      href={service.href}
+                      href={`/services/${service.slug}`}
                       className="hover:text-primary transition-colors"
                     >
                       {service.title}

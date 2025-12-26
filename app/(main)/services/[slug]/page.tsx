@@ -1,11 +1,35 @@
-import { ServicePricing } from "@/components/sections/ServicePricing";
-import { AI_ML_PRICING } from "@/constant/pricing";
+import { ServiceDetails } from "@/components/services/service-details";
+import { SERVICES } from "@/constant/data";
+import { notFound } from "next/navigation";
 
-export default function SingleServicePage() {
-  return (
-    <section className="space-y-8 container">
-      <h2 className="text-2xl font-semibold">Pricing & Engagement Models</h2>
-      <ServicePricing tiers={AI_ML_PRICING} />
-    </section>
-  );
+type Params = Promise<{ slug: string }>;
+
+export async function generateMetadata(props: { params: Params }) {
+  const params = await props.params;
+  const service = SERVICES.find((s) => s.slug === params.slug);
+
+  if (!service) return notFound();
+
+  return {
+    title: service.title,
+    description: service.shortDescription,
+    openGraph: {
+      images: service.icon,
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  return SERVICES.map((service) => ({
+    slug: service.slug,
+  }));
+}
+
+export default async function ServicePage(props: { params: Params }) {
+  const params = await props.params;
+  const service = SERVICES.find((s) => s.slug === params.slug);
+
+  if (!service) return notFound();
+
+  return <ServiceDetails service={service} />;
 }

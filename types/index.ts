@@ -1,32 +1,3 @@
-export interface Service {
-  id: string;
-
-  /** Core display */
-  title: string;
-  description: string; // short, marketing-friendly summary
-  detailedDescription?: string; // long-form explanation for service page
-
-  /** Value clarity */
-  deliverables?: string[]; // What the client gets
-  useCases?: string[]; // Who this service is for / scenarios
-
-  /** Technical credibility */
-  tools: string[];
-  relatedSkills?: string[]; // Cross-links to skills section
-
-  /** Visual + navigation */
-  icon: string;
-  href: string;
-
-  /** Business logic */
-  featured?: boolean;
-  startingPrice?: string; // Optional, e.g. "From $500"
-  turnaroundTime?: string; // e.g. "2–4 weeks"
-
-  /** Proof & conversion */
-  relatedProjects?: string[]; // Project IDs or slugs
-}
-
 export interface Profile {
   fullName: string;
   headline: string; // e.g. "Full-Stack Engineer | AI & Mobile Solutions"
@@ -175,3 +146,45 @@ export interface PricingTier {
 }
 
 export type ContactType = "email" | "whatsapp" | "location";
+
+export type PricingModel = "Fixed" | "Hourly" | "Custom";
+
+export interface ServiceProcessStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface ServicePricing {
+  model: PricingModel;
+  startingFrom: string;
+  currency: "UGX";
+  notes?: string;
+}
+
+export interface ServiceTimeline {
+  min: string;
+  max: string;
+}
+
+export interface Service {
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  detailedDescription: string;
+
+  category: "Development" | "AI" | "Consulting";
+  featured?: boolean;
+
+  tools: string[];
+  deliverables: string[];
+  useCases: string[];
+  idealFor: string[];
+
+  process: ServiceProcessStep[];
+  pricing: ServicePricing;
+  timeline: ServiceTimeline;
+
+  icon: string;
+}

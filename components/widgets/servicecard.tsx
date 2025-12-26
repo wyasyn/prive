@@ -4,13 +4,13 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const ServiceCard = ({ service }: { service: Service }) => {
+export const ServiceLinkCard = ({ service }: { service: Service }) => {
   return (
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <Link href={service.href}>
+      <Link href={`/services/${service.slug}`}>
         <div
           className="
             h-full rounded-2xl border border-border/50
@@ -36,7 +36,7 @@ export const ServiceCard = ({ service }: { service: Service }) => {
               </h4>
 
               <p className="text-xs text-muted-foreground leading-relaxed">
-                {service.description}
+                {service.shortDescription}
               </p>
 
               <div className="flex flex-wrap gap-2 pt-1">
