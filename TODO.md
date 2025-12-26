@@ -1,6 +1,7 @@
 # Tasks to be done
 
-[ ] - correct cloudinary image upload
-[ ] - admin buttons are nested causing errors
+[x] - correct cloudinary image upload
+[x] - admin buttons are nested causing errors
 [x] - create moving product images behind profile image
-[ ] - make project card like blog card
+[x] - make project card like blog card
+[ ] - correct services card styles
