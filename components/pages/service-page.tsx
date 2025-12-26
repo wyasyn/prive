@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { SERVICES } from "@/constant/data";
+import { useMediaQuery } from "usehooks-ts";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ServiceCard from "../services/service-card";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 export default function ServicesPage() {
   const [page, setPage] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const mobile = useMediaQuery("(max-width: 768px)");
 
-  const PAGE_SIZE = 3;
+  const desktop = useMediaQuery("(min-width: 1024px)");
+
+  const PAGE_SIZE = mobile ? 1 : desktop ? 3 : 3;
   const start = page * PAGE_SIZE;
   const currentServices = SERVICES.slice(start, start + PAGE_SIZE);
 
@@ -29,21 +32,13 @@ export default function ServicesPage() {
           </p>
           <div className="flex items-start justify-between">
             <div className="max-w-xl">
-              <h1 className="text-5xl font-bold mb-4">What we do best</h1>
+              <h1 className="text-5xl font-bold mb-4">What I do best</h1>
               <p>
-                We help studios and creatives build brands, launch websites, and
-                grow with confidence.
+                I help brands, founders, and creatives build strong identities,
+                launch high<span className="font-serif">-</span>quality
+                websites, and grow with confidence.
               </p>
             </div>
-            <Link href={"/contact"}>
-              <Button
-                variant={"secondary"}
-                className="py-3  items-center gap-2"
-              >
-                Let&apos;s Talk
-                <span className="w-2 h-2 bg-primary rounded-full"></span>
-              </Button>
-            </Link>
           </div>
         </div>
 
@@ -60,55 +55,37 @@ export default function ServicesPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-center gap-4">
-          <button
+        <div className="flex items-center justify-center gap-4 border border-border/60 w-fit mx-auto p-1 rounded-2xl bg-card/60">
+          <Button
+            type="button"
             onClick={() => {
               setPage((p) => p - 1);
               setActiveIndex(0);
             }}
             disabled={!canGoPrev}
-            className="flex items-center gap-2 px-6 py-3 rounded-full border-2  
-                     disabled:opacity-40 disabled:cursor-not-allowed
-                      transition-all"
+            aria-label="Previous"
+            variant={"outline"}
+            size={"icon-lg"}
+            className={"rounded-full"}
+            title="Previous"
           >
             <ChevronLeft className="w-4 h-4" />
-            <span className="font-medium">Previous</span>
-          </button>
+          </Button>
 
-          <div className="flex gap-2">
-            {Array.from({ length: Math.ceil(SERVICES.length / PAGE_SIZE) }).map(
-              (_, idx) => (
-                <button
-                  type="button"
-                  aria-label=" more services "
-                  key={idx}
-                  onClick={() => {
-                    setPage(idx);
-                    setActiveIndex(0);
-                  }}
-                  className={`
-                  w-2 h-2 rounded-full transition-all
-                  ${page === idx ? "bg-black w-8" : "bg-gray-300"}
-                `}
-                />
-              )
-            )}
-          </div>
-
-          <button
-            type="button"
+          <Button
             onClick={() => {
               setPage((p) => p + 1);
               setActiveIndex(0);
             }}
             disabled={!canGoNext}
-            className="flex items-center gap-2 px-6 py-3 rounded-full border-2 
-                     disabled:opacity-40 disabled:cursor-not-allowed
-                      transition-all"
+            size={"icon-lg"}
+            aria-label="Next"
+            variant={"outline"}
+            className={"rounded-full"}
+            title="Next"
           >
-            <span className="font-medium">Next</span>
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -28,12 +28,12 @@ const HeroSection = () => {
             About me
           </p>
           <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-            Hey, I<span className="font-mono">&apos;</span>m
+            Hey, I<span className="font-serif">&apos;</span>m
             <br />
             Yasin Walum
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I<span className="font-mono">&apos;</span>m a full stack software
+            I<span className="font-serif">&apos;</span>m a full stack software
             engineer based in Kampala, Uganda, building modern web and mobile
             applications. I work across frontend and backend systems, focusing
             on clean architecture, performance, and real

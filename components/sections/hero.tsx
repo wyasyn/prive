@@ -12,9 +12,10 @@ export default function HeroSection() {
     >
       <div className="container flex min-h-[80vh]  flex-col items-center justify-center text-center">
         {/* Availability / Status */}
-        <Badge className="mb-6 inline-flex items-center rounded-full bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
+        <Badge className="mb-6 inline-flex items-center rounded-md bg-primary/10 px-3 py-4 text-sm font-medium text-primary">
           <span className="mr-1 h-2 w-2 animate-pulse rounded-full bg-primary" />
-          Open to freelance & full-time roles
+          Open to freelance <span className="font-serif">&</span> full
+          <span className="font-serif">-</span>time roles
         </Badge>
 
         {/* Primary Heading (SEO Critical) */}

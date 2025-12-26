@@ -8,7 +8,7 @@ const BioSection = () => {
         {/* Left Column - About Text */}
         <div className="space-y-6">
           <p className="text-lg leading-relaxed">
-            <span className="text-5xl font-bold float-left mr-3 leading-none">
+            <span className="text-5xl font-bold float-left mr-3 font-serif leading-none">
               M
             </span>
             y name is Walum Yasin, a full stack engineer with a strong

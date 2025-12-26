@@ -1,5 +1,4 @@
 import { Service } from "@/types";
-import { Code, Code2 } from "lucide-react";
 import Image from "next/image";
 
 interface Props {
@@ -38,18 +37,6 @@ const ServiceCard = ({ service, isActive, onClick }: Props) => {
           ${isActive ? "w-1/2" : "w-full"}
         `}
         >
-          {/* Icon */}
-          <div
-            className={`
-            w-14 h-14 rounded-2xl 
-            flex items-center justify-center
-            transition-all duration-500
-            ${isActive ? "scale-100 opacity-100" : "scale-90 opacity-70"}
-          `}
-          >
-            <Code className="w-6 h-6 " />
-          </div>
-
           {/* Title and Description */}
           <div className="space-y-4 bg-secondary/30 p-4 rounded-2xl">
             <h3

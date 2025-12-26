@@ -133,7 +133,7 @@ export default function ToolStack() {
         {/* Left Column – Context */}
         <div className="lg:sticky lg:top-32">
           <h2 className="text-4xl font-bold tracking-tight">
-            Tools & Technologies
+            Tools <span className="font-serif">&</span> Technologies
           </h2>
           <p className="mt-4 text-muted-foreground max-w-md">
             Technologies I actively use to design, build, and ship reliable
