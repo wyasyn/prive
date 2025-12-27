@@ -4,18 +4,25 @@ import Link from "next/link";
 import { ChevronRight, FolderOpen } from "lucide-react";
 import ProjectMarquee from "./project-marque";
 
+import Image from "next/image";
+
 export default function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full overflow-hidden bg-background py-20 md:py-32 lg:pb-40 "
+      className=" relative w-full overflow-hidden bg-background py-20 md:py-32 lg:pb-40 "
     >
       <div className="container flex min-h-[80vh]  flex-col items-center justify-center text-center">
         {/* Availability / Status */}
-        <Badge className="mb-6 inline-flex items-center rounded-md bg-primary/10 px-3 py-4 text-sm font-medium text-primary">
-          <span className="mr-1 h-2 w-2 animate-pulse rounded-full bg-primary" />
-          Open to freelance <span className="font-serif">&</span> full
-          <span className="font-serif">-</span>time roles
+        <Badge className="mb-6 gap-2 justify-center flex items-center rounded-md bg-primary/10 px-3 py-4 font-medium text-primary">
+          <span className="text-sm">Based in Kampala, Uganda</span>
+          <Image
+            src="https://flagcdn.com/ug.svg"
+            alt="Uganda Flag"
+            width={20}
+            height={12}
+            className="object-contain "
+          />
         </Badge>
 
         {/* Primary Heading (SEO Critical) */}
