@@ -175,3 +175,39 @@
 .prose-editor .ql-editor {
   min-height: 300px;
 }
+
+.prose-editor .ql-editor.ql-blank::before {
+  font-size: 1rem;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sidebar);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-sidebar-ring);
+  border-radius: 6px;
+  border: 3px solid var(--color-sidebar);
+}
+
+/* Firefox scrollbar styles */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sidebar-ring) var(--color-sidebar);
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}

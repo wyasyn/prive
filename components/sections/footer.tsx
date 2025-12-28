@@ -1,6 +1,14 @@
 import { SERVICES, socials } from "@/constant/data";
 import Link from "next/link";
 
+const quickLinks = [
+  { title: "Projects", href: "/projects" },
+  { title: "About", href: "/about" },
+  { title: "Contact", href: "/contact" },
+  { title: "Blog", href: "/blog" },
+  { title: "Privacy Policy", href: "/policy" },
+];
+
 export const Footer = () => {
   return (
     <>
@@ -72,30 +80,16 @@ export const Footer = () => {
                 Explore
               </h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link
-                    href="/projects"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className="hover:text-primary transition-colors"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Contact
-                  </Link>
-                </li>
+                {quickLinks.map((link) => (
+                  <li key={link.title}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

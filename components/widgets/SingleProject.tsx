@@ -20,11 +20,10 @@ interface SingleProjectProps {
 export default function SingleProject({ project }: SingleProjectProps) {
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 md:py-24">
-      <BackButton />
       {/* Header */}
       <header className="mb-8">
-        <p className="mb-2 text-sm font-medium text-muted-foreground">
-          {project.category}
+        <p className="mb-2 text-sm font-medium text-muted-foreground flex items-center gap-2">
+          <BackButton /> {project.category}
         </p>
 
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

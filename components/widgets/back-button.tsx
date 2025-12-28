@@ -7,9 +7,13 @@ import { ChevronLeft } from "lucide-react";
 export default function BackButton() {
   const router = useRouter();
   return (
-    <Button className={"mb-8"} variant={"ghost"} onClick={() => router.back()}>
-      <ChevronLeft className=" h-4 w-4" />
-      Back
+    <Button
+      variant={"ghost"}
+      size={"icon-lg"}
+      onClick={() => router.back()}
+      aria-label="Back"
+    >
+      <ChevronLeft className=" h-6 w-6" />
     </Button>
   );
 }

@@ -15,11 +15,10 @@ interface SingleBlogProps {
 export default function SingleBlog({ blog }: SingleBlogProps) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 md:py-24">
-      <BackButton />
       {/* Header */}
       <header className="mb-8">
-        <p className="mb-2 text-sm font-medium text-muted-foreground">
-          {blog.category}
+        <p className="mb-2 text-sm font-medium text-muted-foreground flex items-center gap-2">
+          <BackButton /> {blog.category}
         </p>
 
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

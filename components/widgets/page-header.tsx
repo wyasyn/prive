@@ -27,7 +27,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           </p>
         )}
 
-        <h1 className="text-5xl font-display mb-4 max-w-xl">{title}</h1>
+        <h1 className="text-5xl mb-4 max-w-xl">{title}</h1>
 
         {description && (
           <p className="max-w-xl text-base leading-relaxed">{description}</p>

@@ -1,12 +1,16 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Service } from "@/types";
+import BackButton from "../widgets/back-button";
 
 export function ServiceDetails({ service }: { service: Service }) {
   return (
     <section className="container py-16">
       <div className="max-w-3xl">
-        <h1 className="text-4xl font-bold">{service.title}</h1>
+        <h1 className="text-4xl font-bold font-display flex items-center gap-4">
+          <BackButton />
+          {service.title}
+        </h1>
         <p className="mt-4 text-muted-foreground">
           {service.detailedDescription}
         </p>

@@ -110,7 +110,7 @@ export default function RootLayout({
       className={cn(ceraPro.variable, playfairDisplay.variable)}
       suppressHydrationWarning
     >
-      <body className={`antialiased`}>
+      <body className={`antialiased hide-scrollbar `}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

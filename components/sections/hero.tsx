@@ -4,8 +4,6 @@ import Link from "next/link";
 import { ChevronRight, FolderOpen } from "lucide-react";
 import ProjectMarquee from "./project-marque";
 
-import Image from "next/image";
-
 export default function HeroSection() {
   return (
     <section
@@ -16,13 +14,7 @@ export default function HeroSection() {
         {/* Availability / Status */}
         <Badge className="mb-6 gap-2 justify-center flex items-center rounded-md bg-primary/10 px-3 py-4 font-medium text-primary">
           <span className="text-sm">Based in Kampala, Uganda</span>
-          <Image
-            src="https://flagcdn.com/ug.svg"
-            alt="Uganda Flag"
-            width={20}
-            height={12}
-            className="object-contain "
-          />
+          🇺🇬
         </Badge>
 
         {/* Primary Heading (SEO Critical) */}

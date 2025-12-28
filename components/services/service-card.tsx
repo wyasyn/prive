@@ -1,5 +1,11 @@
 import { Service } from "@/types";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import SlideTextButton from "../kokonutui/slide-text-button";
 
 interface Props {
   service: Service;
@@ -10,100 +16,51 @@ interface Props {
 const ServiceCard = ({ service, isActive, onClick }: Props) => {
   return (
     <div
+      className="flex flex-col gap-2 bg-secondary/75 p-2 rounded-xl cursor-pointer transition-all duration-300 hover:scale-[1.02] group"
       onClick={onClick}
-      className={`
-        relative overflow-hidden rounded-3xl bg-card  cursor-pointer
-        transition-all duration-700 ease-in-out
-        ${isActive ? "flex-2" : "flex-[0.7]"}
-        h-100 group
-      `}
     >
-      {/* Background overlay for inactive cards */}
-      <div
-        className={`
-        absolute inset-0 backdrop-blur-[2px]
-        transition-opacity duration-500
-        ${isActive ? "opacity-0" : "opacity-100"}
-      `}
-      />
-
-      {/* Content Container */}
-      <div className="relative h-full flex">
-        {/* Left side - Text content */}
-        <div
-          className={`
-          flex flex-col justify-between p-8
-          transition-all duration-700
-          ${isActive ? "w-1/2" : "w-full"}
-        `}
-        >
-          {/* Title and Description */}
-          <div className="space-y-4 bg-secondary/30 p-4 rounded-2xl">
-            <h3
-              className={`
-              font-semibold transition-all duration-500
-              ${isActive ? "text-xl" : "text-lg opacity-70"}
-            `}
-            >
-              {service.title}
-            </h3>
-
-            {/* Expandable content */}
-            <div
-              className={`
-              overflow-hidden transition-all duration-700
-              ${isActive ? "max-h-75 opacity-100" : "max-h-0 opacity-0"}
-            `}
-            >
-              <p className="text-sm leading-relaxed mb-4">
-                {service.shortDescription}
-              </p>
-
-              <div className="space-y-2">
-                {service.deliverables.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="text-sm  flex items-center gap-2"
-                    style={{
-                      transitionDelay: `${idx * 50}ms`,
-                    }}
-                  >
-                    <span>•</span>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right side - Image area */}
-        <div
-          className={`
-          absolute right-2 top-2 bottom-2 h-full
-          transition-all duration-700 ease-in-out
-          ${isActive ? "w-1/2 translate-x-0" : "w-0 translate-x-full"}
-        `}
-        >
-          <div
-            className={`
-            w-full h-full
-            flex items-center justify-center
-            transition-opacity duration-500
-            ${isActive ? "opacity-100" : "opacity-0"}
-          `}
+      <header
+        className={cn(
+          "flex items-center justify-between gap-2  px-4 py-2 rounded-lg",
+          isActive ? "bg-primary/10" : "bg-background"
+        )}
+      >
+        <SlideTextButton
+          text={service.title}
+          variant="ghost"
+          className="border-none hover:bg-transparent flex-1 p-0 justify-start"
+          href={`/services/${service.slug}`}
+        />
+        <Link href={`/services/${service.slug}`}>
+          <Button
+            size={"icon-lg"}
+            variant={isActive ? "default" : "secondary"}
+            className={"group-hover:bg-primary/25"}
           >
-            {/* Placeholder for actual image */}
-            <div className="rounded-2xl  flex items-center justify-center">
-              <Image
-                src={service.icon}
-                alt={service.title}
-                width={256}
-                height={256}
-                className="w-full h-full object-cover rounded-2xl"
-              />
-            </div>
-          </div>
+            <ExternalLink className="w-4 h-4" />
+          </Button>
+        </Link>
+      </header>
+      <div
+        className={cn(
+          "flex-1 bg-background px-4 py-5 rounded-lg flex flex-col gap-3",
+          isActive ? "bg-primary/10" : "bg-background"
+        )}
+      >
+        <p>{service.shortDescription}</p>
+        <Image
+          src={service.icon}
+          alt={service.title}
+          width={400}
+          height={300}
+          className="rounded-lg w-full aspect-square md:aspect-video object-cover"
+        />
+        <div className="mt-2 flex flex-wrap gap-2">
+          {service.tools.map((tool) => (
+            <Badge variant={isActive ? "secondary" : "outline"} key={tool}>
+              {tool}
+            </Badge>
+          ))}
         </div>
       </div>
     </div>
