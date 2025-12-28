@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Playfair_Display } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
@@ -12,85 +11,77 @@ const ceraPro = localFont({
     // Thin
 
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-thin.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProThin.otf",
       weight: "100",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-thinitalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProThinItalic.otf",
       weight: "100",
       style: "italic",
     },
 
     // Light
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-light.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProLight.otf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-lightitalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProLightItalic.otf",
       weight: "300",
       style: "italic",
     },
 
     // Regular
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-regular.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProRegular.otf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-regularitalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProRegularItalic.otf",
       weight: "400",
       style: "italic",
     },
 
     // Medium
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-medium.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProMedium.otf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-mediumitalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProMediumItalic.otf",
       weight: "500",
       style: "italic",
     },
 
     // Bold
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-bold.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProBold.otf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-bolditalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProBoldItalic.otf",
       weight: "700",
       style: "italic",
     },
 
     // Black
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-black.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProBlack.otf",
       weight: "900",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cera-pro-font/cerapro-blackitalic.otf",
+      path: "../assets/fonts/cera-pro-font/CeraProBlackItalic.otf",
       weight: "900",
       style: "italic",
     },
   ],
   variable: "--font-cera-pro",
-  display: "swap",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-
-  style: ["normal", "italic"],
-  variable: "--font-display",
   display: "swap",
 });
 
@@ -105,11 +96,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn(ceraPro.variable, playfairDisplay.variable)}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={cn(ceraPro.variable)} suppressHydrationWarning>
       <body className={`antialiased hide-scrollbar `}>
         <ThemeProvider
           attribute="class"
