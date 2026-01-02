@@ -4,6 +4,7 @@ import {
   IconBrandInstagram,
   IconBrandLinkedin,
   IconBrandX,
+  IconBrandYoutube,
 } from "@tabler/icons-react";
 
 export const SERVICES: Service[] = [
@@ -295,5 +296,10 @@ export const socials = [
     icon: IconBrandInstagram,
     href: "https://www.instagram.com/yasin_walum",
     label: "Dribbble",
+  },
+  {
+    icon: IconBrandYoutube,
+    href: "https://www.youtube.com/@yasin-walum",
+    label: "YouTube",
   },
 ];

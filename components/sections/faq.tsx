@@ -81,13 +81,12 @@ const FAQSection = () => {
               <AccordionItem
                 key={value}
                 value={value}
-                className="rounded-xl border border-border/60 px-4 bg-card/60"
+                className="rounded-xl border border-border/60 p-5 bg-card/60"
               >
                 <AccordionTrigger className="flex items-center gap-3 text-left">
-                  <Icon className="h-5 w-5 text-muted-foreground/80 shrink-0" />
-                  <span>{question}</span>
+                  {question}
                 </AccordionTrigger>
-                <AccordionContent className="pl-8 text-muted-foreground bg-secondary/70 rounded-lg py-2 mb-3">
+                <AccordionContent className=" text-muted-foreground bg-secondary/70 rounded-lg  p-3 mb-3">
                   {answer}
                 </AccordionContent>
               </AccordionItem>

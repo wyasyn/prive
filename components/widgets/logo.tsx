@@ -11,7 +11,9 @@ export const Logo = () => (
         width={32}
         height={32}
       />
-      <span className="text-foreground text-lg font-medium">Walum</span>
+      <span className="text-foreground text-lg font-medium max-[400px]:hidden">
+        Walum
+      </span>
     </Button>
   </Link>
 );

@@ -22,7 +22,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     <header className={`mb-12 ${className}`}>
       <div className={`flex flex-col ${alignment}`}>
         {eyebrow && (
-          <p className="text-primary font-medium mb-3 tracking-wide text-sm uppercase">
+          <p className=" font-medium mb-3 tracking-wide text-sm uppercase">
             {eyebrow}
           </p>
         )}
