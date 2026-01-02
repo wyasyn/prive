@@ -295,7 +295,7 @@ export const socials = [
   {
     icon: IconBrandInstagram,
     href: "https://www.instagram.com/yasin_walum",
-    label: "Dribbble",
+    label: "Instagram",
   },
   {
     icon: IconBrandYoutube,

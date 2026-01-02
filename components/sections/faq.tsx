@@ -77,16 +77,16 @@ const FAQSection = () => {
           className=" lg:col-span-2 "
         >
           <Accordion className="w-full space-y-3">
-            {faqs.map(({ value, icon: Icon, question, answer }) => (
+            {faqs.map(({ value, question, answer }) => (
               <AccordionItem
                 key={value}
                 value={value}
-                className="rounded-xl border border-border/60 p-5 bg-card/60"
+                className=" border border-border/60 bg-card/60 rounded-md hover:bg-secondary/70 transition-colors "
               >
-                <AccordionTrigger className="flex items-center gap-3 text-left">
+                <AccordionTrigger className="flex items-center gap-3 px-3 text-left">
                   {question}
                 </AccordionTrigger>
-                <AccordionContent className=" text-muted-foreground bg-secondary/70 rounded-lg  p-3 mb-3">
+                <AccordionContent className=" text-muted-foreground bg-secondary/70  p-3 rounded-b-md ">
                   {answer}
                 </AccordionContent>
               </AccordionItem>
