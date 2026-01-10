@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import BackButton from "./back-button";
+import { marked } from "marked";
 
 interface SingleProjectProps {
   project: {
@@ -18,6 +19,8 @@ interface SingleProjectProps {
 }
 
 export default function SingleProject({ project }: SingleProjectProps) {
+  const htmlContent = marked(project.content);
+
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 md:py-24">
       {/* Header */}
@@ -96,7 +99,7 @@ export default function SingleProject({ project }: SingleProjectProps) {
           prose-pre:bg-muted
           prose-img:rounded-xl
         "
-        dangerouslySetInnerHTML={{ __html: project.content }}
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </article>
   );

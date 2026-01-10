@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BackButton from "./back-button";
+import { marked } from "marked";
 
 interface SingleBlogProps {
   blog: {
@@ -13,6 +14,8 @@ interface SingleBlogProps {
 }
 
 export default function SingleBlog({ blog }: SingleBlogProps) {
+  // Convert markdown to HTML
+  const htmlContent = marked(blog.content);
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 md:py-24">
       {/* Header */}
@@ -56,7 +59,7 @@ export default function SingleBlog({ blog }: SingleBlogProps) {
           prose-code:text-foreground
           prose-pre:bg-muted
         "
-        dangerouslySetInnerHTML={{ __html: blog.content }}
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </article>
   );

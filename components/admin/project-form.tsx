@@ -16,18 +16,15 @@ import { Switch } from "@/components/ui/switch";
 import { uploadToCloudinary } from "@/app/actions/cloudinary";
 import { IconLoader2, IconX } from "@tabler/icons-react";
 import { toast } from "sonner";
-
-// Dynamically import Tiptap Editor to avoid SSR issues
-const RichTextEditor = dynamic(
-  () => import("@/components/ui/rich-text-editor"),
+const MarkdownEditor = dynamic(
+  () => import("@/components/ui/markdown-editor"),
   {
     ssr: false,
     loading: () => (
-      <div className="h-64 border rounded-md animate-pulse bg-muted" />
+      <div className="h-64 border rounded-md animate-pulse bg-card" />
     ),
   }
 );
-
 interface ProjectFormProps {
   project?: Project;
 }
@@ -208,7 +205,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
 
           <div className="space-y-2">
             <Label>Content</Label>
-            <RichTextEditor
+            <MarkdownEditor
               value={content}
               onChange={setContent}
               placeholder="Write your project content here..."

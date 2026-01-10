@@ -18,8 +18,18 @@ import { IconLoader2, IconX } from "@tabler/icons-react";
 import { toast } from "sonner";
 
 // Dynamically import Tiptap Editor to avoid SSR issues
-const RichTextEditor = dynamic(
-  () => import("@/components/ui/rich-text-editor"),
+// const RichTextEditor = dynamic(
+//   () => import("@/components/ui/rich-text-editor"),
+//   {
+//     ssr: false,
+//     loading: () => (
+//       <div className="h-64 border rounded-md animate-pulse bg-card" />
+//     ),
+//   }
+// );
+
+const MarkdownEditor = dynamic(
+  () => import("@/components/ui/markdown-editor"),
   {
     ssr: false,
     loading: () => (
@@ -193,7 +203,13 @@ export function BlogForm({ blog }: BlogFormProps) {
 
           <div className="space-y-2">
             <Label>Content</Label>
-            <RichTextEditor
+            {/* <RichTextEditor
+              value={content}
+              onChange={setContent}
+              placeholder="Write your blog content here..."
+            /> */}
+
+            <MarkdownEditor
               value={content}
               onChange={setContent}
               placeholder="Write your blog content here..."
