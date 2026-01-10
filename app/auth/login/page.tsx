@@ -37,22 +37,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <Card>
-          <CardHeader>
+    <div className="flex min-h-svh w-full items-center bg-[url('https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1506&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] justify-center p-6 md:p-10 bg-cover bg-center bg-no-repeat">
+      <div className="w-full max-w-md ">
+        <Card className="bg-background/25 backdrop-blur-sm p-8 aspect-square items-center justify-center w-full border border-border/50">
+          <CardHeader className="w-full">
             <CardTitle className="text-2xl">Admin Login</CardTitle>
             <CardDescription>
               Sign in with Google or GitHub to access the admin dashboard
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="w-full">
             <div className="flex flex-col gap-4">
               <Button
                 onClick={() => handleOAuthLogin("google")}
                 disabled={isLoading}
-                className="w-full"
+                className="w-full "
                 variant="outline"
+                size={"lg"}
               >
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
@@ -79,6 +80,7 @@ export default function LoginPage() {
                 disabled={isLoading}
                 className="w-full"
                 variant="outline"
+                size={"lg"}
               >
                 <IconBrandGithub className="mr-2 h-4 w-4" />
                 Continue with GitHub
